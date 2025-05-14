@@ -6,11 +6,12 @@ pub fn build(b: *std.Build) void {
 
     const fuzzer = b.addLibrary(.{
         .name = "fuzzer",
-        .linkage = b.option(std.builtin.LinkMode, "linkage", "") orelse .static,
+        .linkage = .dynamic,
         .root_module = b.createModule(.{
             .target = target,
             .optimize = optimize,
             .link_libcpp = true,
+            .root_source_file = b.path("sanitizer_common.zig"),
         }),
     });
 
@@ -69,6 +70,6 @@ pub fn build(b: *std.Build) void {
 
     const run_example = b.addRunArtifact(example);
     if (b.args) |args| run_example.addArgs(args);
-    const example_step = b.step("example", "sin city wasn't made for you");
+    const example_step = b.step("example", "C fuzzing example");
     example_step.dependOn(&run_example.step);
 }
