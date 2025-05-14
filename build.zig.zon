@@ -11,5 +11,6 @@
         "LICENSE",
         "LICENSE-MIT",
         "README.md",
+        "sanitizer_common.zig",
     },
 }
