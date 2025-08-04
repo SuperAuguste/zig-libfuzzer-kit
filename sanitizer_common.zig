@@ -1,3 +1,5 @@
+const std = @import("std");
+
 export fn __sanitizer_set_death_callback(
     callback: *const fn () callconv(.c) void,
 ) callconv(.c) void {
@@ -10,5 +12,6 @@ export fn __sanitizer_acquire_crash_state() callconv(.c) bool {
 }
 
 export fn __sanitizer_print_stack_trace() callconv(.c) void {
-    @panic("");
+    if (@errorReturnTrace()) |t| std.debug.dumpStackTrace(t.*);
+    std.debug.dumpCurrentStackTrace(@returnAddress());
 }
