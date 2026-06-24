@@ -13,5 +13,5 @@ export fn __sanitizer_acquire_crash_state() callconv(.c) bool {
 
 export fn __sanitizer_print_stack_trace() callconv(.c) void {
     if (@errorReturnTrace()) |t| std.debug.dumpStackTrace(t.*);
-    std.debug.dumpCurrentStackTrace(@returnAddress());
+    std.debug.dumpCurrentStackTrace(.{ .first_address = @returnAddress() });
 }

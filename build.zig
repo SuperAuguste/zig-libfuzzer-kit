@@ -58,12 +58,12 @@ pub fn build(b: *std.Build) void {
         }),
     });
 
-    example.addCSourceFile(.{
+    example.root_module.addCSourceFile(.{
         .file = b.path("example.c"),
         .flags = &.{"-fsanitize=fuzzer-no-link"},
     });
-    example.linkLibrary(fuzzer);
-    example.addCSourceFile(.{
+    example.root_module.linkLibrary(fuzzer);
+    example.root_module.addCSourceFile(.{
         .file = b.path("src/FuzzerMain.cpp"),
         .language = .cpp,
     });
