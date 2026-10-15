@@ -69,7 +69,7 @@ pub fn build(b: *std.Build) void {
     });
 
     const run_example = b.addRunArtifact(example);
-    if (b.args) |args| run_example.addArgs(args);
+    run_example.addPassthruArgs();
     const example_step = b.step("example", "C fuzzing example");
     example_step.dependOn(&run_example.step);
 }
